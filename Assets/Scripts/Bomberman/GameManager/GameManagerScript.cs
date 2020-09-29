@@ -1,4 +1,5 @@
-﻿using Bomberman.Character;
+﻿using System;
+using Bomberman.Character;
 using Bomberman.Terrain;
 using UnityEngine;
 
@@ -12,11 +13,11 @@ namespace Bomberman.GameManager
         private GameObject _victoryMenuPrefab;
         [SerializeField]
         private GameObject _characterPrefab;
-        
         [SerializeField]
         private Material _character1Material;
         [SerializeField]
         private Material _character2Material;
+        
 
         public MapScript Map { get; private set; }
 
@@ -26,7 +27,7 @@ namespace Bomberman.GameManager
         public bool Running { get; set; } = true;
 
         public static GameManagerScript Instance { get; private set; }
-
+        
         private VictoryMenuScript VictoryMenu;
 
         private void Awake()
@@ -58,7 +59,7 @@ namespace Bomberman.GameManager
             Character2.SetController(new RandomCharacterController());
             Character2.SetMaterial(_character2Material);
         }
-
+        
         public void CheckPlayers()
         {
             if (!Character1.gameObject.activeSelf && !Character2.gameObject.activeSelf)
