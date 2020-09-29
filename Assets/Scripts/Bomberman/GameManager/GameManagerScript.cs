@@ -20,8 +20,8 @@ namespace Bomberman.GameManager
 
         public CharacterScript Character1 { get; private set; }
         public CharacterScript Character2 { get; private set; }
-        
-        public bool Running { get; set; }
+
+        public bool Running { get; set; } = true;
 
         public static GameManagerScript Instance { get; private set; }
 
