@@ -58,6 +58,8 @@ namespace Bomberman.Character
 			RequestedActions actions = _controller.Update(_bomb.IsReady);
 
 			Position += actions.Move;
+			if (actions.Move.sqrMagnitude != 0)
+				transform.rotation = Quaternion.LookRotation(new Vector3(actions.Move.x, 0, actions.Move.y));
 
 			if (_bomb.IsReady && actions.DropBomb)
 			{
