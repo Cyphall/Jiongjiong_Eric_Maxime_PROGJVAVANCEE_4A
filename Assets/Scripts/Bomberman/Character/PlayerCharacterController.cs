@@ -4,7 +4,7 @@ namespace Bomberman.Character
 {
 	public class PlayerCharacterController : ICharacterController
 	{
-		public RequestedActions Update(bool bombReady)
+		public RequestedActions Update(CharacterScript character)
 		{
 			RequestedActions actions = new RequestedActions();
 			

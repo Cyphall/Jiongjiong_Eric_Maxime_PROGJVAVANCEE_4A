@@ -49,7 +49,7 @@ namespace Bomberman.GameManager
             Character1.SetMaterial(_character1Material);
             
             Character2 = Instantiate(_characterPrefab, new Vector3(Map.Width - 1, 0, 0), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
-            Character2.SetController(new Player2CharacterController());
+            Character2.SetController(new RandomCharacterController());
             Character2.SetMaterial(_character2Material);
         }
     }

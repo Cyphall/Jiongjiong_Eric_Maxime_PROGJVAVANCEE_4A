@@ -4,6 +4,6 @@ namespace Bomberman.Character
 {
 	public interface ICharacterController
 	{
-		RequestedActions Update(bool bombReady);
+		RequestedActions Update(CharacterScript character);
 	}
 }
