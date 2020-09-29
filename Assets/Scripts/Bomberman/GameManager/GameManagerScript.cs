@@ -9,6 +9,8 @@ namespace Bomberman.GameManager
         [SerializeField]
         private GameObject _mapPrefab;
         [SerializeField]
+        private GameObject _victoryMenuPrefab;
+        [SerializeField]
         private GameObject _characterPrefab;
         
         [SerializeField]
@@ -24,6 +26,8 @@ namespace Bomberman.GameManager
         public bool Running { get; set; } = true;
 
         public static GameManagerScript Instance { get; private set; }
+
+        private VictoryMenuScript VictoryMenu;
 
         private void Awake()
         {
@@ -43,6 +47,8 @@ namespace Bomberman.GameManager
         private void Start()
         {
             Map = Instantiate(_mapPrefab).GetComponent<MapScript>();
+
+            VictoryMenu = Instantiate(_victoryMenuPrefab).GetComponent<VictoryMenuScript>();
             
             Character1 = Instantiate(_characterPrefab, new Vector3(0, 0, Map.Height - 1), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
             Character1.SetController(new PlayerCharacterController());
@@ -51,6 +57,29 @@ namespace Bomberman.GameManager
             Character2 = Instantiate(_characterPrefab, new Vector3(Map.Width - 1, 0, 0), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
             Character2.SetController(new RandomCharacterController());
             Character2.SetMaterial(_character2Material);
+        }
+
+        public void CheckPlayers()
+        {
+            if (!Character1.gameObject.activeSelf && !Character2.gameObject.activeSelf)
+            {
+                Pause();
+                VictoryMenu.OpenMenu(0);
+                return;
+            }
+
+            if (!Character1.gameObject.activeSelf)
+            {
+                Pause();
+                VictoryMenu.OpenMenu(2);
+                return;
+            }
+
+            if (!Character2.gameObject.activeSelf)
+            {
+                Pause();
+                VictoryMenu.OpenMenu(1);
+            }
         }
     }
 }
