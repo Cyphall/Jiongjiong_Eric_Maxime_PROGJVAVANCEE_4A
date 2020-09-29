@@ -43,7 +43,6 @@ namespace Bomberman.Bomb
 			if (_remainingFuze <= 0)
 			{
 				Explode();
-				GameManagerScript.Instance.CheckPlayers();
 			}
 		}
 

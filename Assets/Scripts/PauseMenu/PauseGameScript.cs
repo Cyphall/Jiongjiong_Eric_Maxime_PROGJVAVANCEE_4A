@@ -1,19 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using Bomberman.GameManager;
 using UnityEngine;
 
 public class PauseGameScript : MonoBehaviour
 {
   
-    public static bool GameisPaused = false;
-    [SerializeField] private GameObject PauseMenuUI;
-    
-    void Update()
+    [SerializeField]
+    private GameObject PauseMenuUI;
+
+    private void Update()
     {
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (GameisPaused)
+            if (!GameManagerScript.Instance.Running)
             {
                 GameisUnPause();
             }
@@ -24,16 +24,15 @@ public class PauseGameScript : MonoBehaviour
         }
     }
     
-    
     public void GameisPause()
     {
         PauseMenuUI.SetActive(true);
-        Time.timeScale = 0f;
+        GameManagerScript.Instance.Running = false;
     }
 
     public void GameisUnPause()
     {
         PauseMenuUI.SetActive(false);
-        Time.timeScale = 1f;
+        GameManagerScript.Instance.Running = true;
     }
 }

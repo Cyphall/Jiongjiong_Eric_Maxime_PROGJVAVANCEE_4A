@@ -35,16 +35,6 @@ namespace Bomberman.GameManager
             Instance = this;
         }
 
-        public void Pause()
-        {
-            Running = false;
-        }
-
-        public void Unpause()
-        {
-            Running = true;
-        }
-
         private void Start()
         {
             Map = Instantiate(_mapPrefab).GetComponent<MapScript>();
@@ -59,26 +49,31 @@ namespace Bomberman.GameManager
             Character2.SetController(new RandomCharacterController());
             Character2.SetMaterial(_character2Material);
         }
-        
+
+        private void LateUpdate()
+        {
+            CheckPlayers();
+        }
+
         public void CheckPlayers()
         {
             if (!Character1.gameObject.activeSelf && !Character2.gameObject.activeSelf)
             {
-                Pause();
+                Running = false;
                 _victoryMenu.OpenMenu(0);
                 return;
             }
 
             if (!Character1.gameObject.activeSelf)
             {
-                Pause();
+                Running = false;
                 _victoryMenu.OpenMenu(2);
                 return;
             }
 
             if (!Character2.gameObject.activeSelf)
             {
-                Pause();
+                Running = false;
                 _victoryMenu.OpenMenu(1);
             }
         }

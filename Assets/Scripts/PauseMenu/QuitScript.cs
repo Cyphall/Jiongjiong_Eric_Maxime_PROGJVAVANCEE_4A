@@ -9,8 +9,6 @@ public class QuitScript : MonoBehaviour
     
     public void ChangeSceneQuit()
     {
-        
         SceneManager.LoadScene(SceneToLoadQuit);
-        Time.timeScale = 1f;
     }
 }
