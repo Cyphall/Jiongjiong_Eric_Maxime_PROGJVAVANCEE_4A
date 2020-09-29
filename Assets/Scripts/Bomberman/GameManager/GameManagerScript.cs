@@ -28,7 +28,7 @@ namespace Bomberman.GameManager
 
         public static GameManagerScript Instance { get; private set; }
         
-        private VictoryMenuScript VictoryMenu;
+        private VictoryMenuScript _victoryMenu;
 
         private void Awake()
         {
@@ -49,7 +49,7 @@ namespace Bomberman.GameManager
         {
             Map = Instantiate(_mapPrefab).GetComponent<MapScript>();
 
-            VictoryMenu = Instantiate(_victoryMenuPrefab).GetComponent<VictoryMenuScript>();
+            _victoryMenu = Instantiate(_victoryMenuPrefab).GetComponent<VictoryMenuScript>();
             
             Character1 = Instantiate(_characterPrefab, new Vector3(0, 0, Map.Height - 1), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
             Character1.SetController(new PlayerCharacterController());
@@ -65,22 +65,27 @@ namespace Bomberman.GameManager
             if (!Character1.gameObject.activeSelf && !Character2.gameObject.activeSelf)
             {
                 Pause();
-                VictoryMenu.OpenMenu(0);
+                _victoryMenu.OpenMenu(0);
                 return;
             }
 
             if (!Character1.gameObject.activeSelf)
             {
                 Pause();
-                VictoryMenu.OpenMenu(2);
+                _victoryMenu.OpenMenu(2);
                 return;
             }
 
             if (!Character2.gameObject.activeSelf)
             {
                 Pause();
-                VictoryMenu.OpenMenu(1);
+                _victoryMenu.OpenMenu(1);
             }
+        }
+
+        private void OnDestroy()
+        {
+            Instance = null;
         }
     }
 }
