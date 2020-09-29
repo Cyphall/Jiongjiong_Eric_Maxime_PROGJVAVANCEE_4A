@@ -2,7 +2,7 @@
 
 namespace Bomberman.Bomb
 {
-    public class ExplosionScript : MonoBehaviour
+    public class ExplosionAnimationScript : MonoBehaviour
     {
         private void Start()
         {
