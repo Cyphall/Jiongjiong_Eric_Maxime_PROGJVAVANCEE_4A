@@ -14,9 +14,12 @@ namespace Bomberman.Terrain
 		[SerializeField]
 		[OddRange(3, 30)]
 		private int _width;
+		public int Width => _width;
+		
 		[SerializeField]
 		[OddRange(3, 30)]
 		private int _height;
+		public int Height => _height;
 
 		[SerializeField]
 		private GameObject _floorPrefab;

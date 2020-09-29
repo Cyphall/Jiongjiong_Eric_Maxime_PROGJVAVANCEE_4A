@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75d8fa98fcdf0294fb31e11cb436038e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _meshRenderer: {fileID: 8917813485465324013}
   _bombPrefab: {fileID: 8940946013864148478, guid: 743cada3ea695eb4e8a3090de5b43cc8,
     type: 3}
   _bombFuze: 2

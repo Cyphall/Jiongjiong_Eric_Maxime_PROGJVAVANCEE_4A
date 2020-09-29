@@ -10,6 +10,11 @@ namespace Bomberman.GameManager
         private GameObject _mapPrefab;
         [SerializeField]
         private GameObject _characterPrefab;
+        
+        [SerializeField]
+        private Material _character1Material;
+        [SerializeField]
+        private Material _character2Material;
 
         public MapScript Map { get; private set; }
 
@@ -27,8 +32,13 @@ namespace Bomberman.GameManager
         {
             Map = Instantiate(_mapPrefab).GetComponent<MapScript>();
             
-            Character1 = Instantiate(_characterPrefab, Map.transform).GetComponent<CharacterScript>();
+            Character1 = Instantiate(_characterPrefab, new Vector3(0, 0, Map.Height - 1), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
             Character1.SetController(new PlayerCharacterController());
+            Character1.SetMaterial(_character1Material);
+            
+            Character2 = Instantiate(_characterPrefab, new Vector3(Map.Width - 1, 0, 0), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
+            Character2.SetController(new Player2CharacterController());
+            Character2.SetMaterial(_character2Material);
         }
     }
 }

@@ -2,7 +2,6 @@
 using Bomberman.Bomb;
 using Bomberman.GameManager;
 using Bomberman.Terrain;
-using TMPro.EditorUtilities;
 using UnityEngine;
 
 namespace Bomberman.Character
@@ -10,6 +9,9 @@ namespace Bomberman.Character
 	public class CharacterScript : MonoBehaviour
 	{
 		private ICharacterController _controller;
+
+		[SerializeField]
+		private MeshRenderer _meshRenderer;
 
 		[SerializeField]
 		private GameObject _bombPrefab;
@@ -52,8 +54,16 @@ namespace Bomberman.Character
 			}
 		}
 
+		public void SetMaterial(Material material)
+		{
+			Material[] materials = _meshRenderer.sharedMaterials;
+			materials[8] = material;
+			_meshRenderer.sharedMaterials = materials;
+		}
+
 		private void Start()
 		{
+			_position = new Vector2Int((int)transform.position.x, (int)transform.position.z);
 			_bomb = Instantiate(_bombPrefab, GameManagerScript.Instance.transform).GetComponent<BombScript>();
 			_bomb.gameObject.SetActive(false);
 		}
