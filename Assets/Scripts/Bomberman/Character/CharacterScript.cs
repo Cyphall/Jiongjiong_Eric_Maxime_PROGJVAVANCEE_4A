@@ -18,11 +18,21 @@ namespace Bomberman.Character
 		[SerializeField]
 		[Range(0f, 5f)]
 		private float _bombFuze;
+		public float BombFuze
+		{
+			get => _bombFuze;
+			set => _bombFuze = value;
+		}
 		
 		[SerializeField]
 		[Range(1, 5)]
 		private int _bombRadius;
-
+		public int BombRadius
+		{
+			get => _bombRadius;
+			set => _bombRadius = value;
+		}
+		
 		private Vector2Int _position;
 		public Vector2Int Position
 		{
@@ -31,11 +41,13 @@ namespace Bomberman.Character
 			{
 				Vector2Int posDiff = value - _position;
 				if (posDiff.sqrMagnitude > 1) throw new InvalidOperationException("Cannot move in diagonal");
+				if (posDiff.sqrMagnitude == 0) return;
 
 				if (GameManagerScript.Instance.Map.GetTerrainTypeAtPos(value.x, value.y) == TerrainType.Floor)
 				{
 					_position = value;
 					transform.position = new Vector3(value.x, 0, value.y);
+					GameManagerScript.Instance.Map.TryApplyItemAtPos(value.x, value.y, this);
 				}
 			}
 		}

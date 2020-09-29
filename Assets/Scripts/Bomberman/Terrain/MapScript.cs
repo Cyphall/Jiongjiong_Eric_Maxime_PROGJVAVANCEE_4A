@@ -1,6 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bomberman;
+using Bomberman.Character;
 using Bomberman.GameManager;
+using Bomberman.Item;
 using UnityEngine;
 using Random = System.Random;
 
@@ -28,12 +31,21 @@ namespace Bomberman.Terrain
 		
 		[SerializeField]
 		private GameObject _explosionPrefab;
+		
+		[SerializeField]
+		private GameObject[] _itemsPrefab;
 
 		[SerializeField]
 		[Range(0.0f, 1.0f)]
 		private float _breakableWallProbability;
+		[SerializeField]
+		[Range(0.0f, 1.0f)]
+		private float _itemDropProbability;
 
 		private GameObject[,] _mapData;
+		private Dictionary<Vector2Int, IItem> _items = new Dictionary<Vector2Int, IItem>();
+
+		private Random _random;
 
 		private void Awake()
 		{
@@ -64,7 +76,7 @@ namespace Bomberman.Terrain
 				SetGOAtPos(_width, y, Instantiate(_solidWallBorderPrefab, Vector3.zero, Quaternion.Euler(0, 270, 0), transform));
 			}
 
-			Random random = new Random((int)DateTime.Now.Ticks);
+			_random = new Random((int)DateTime.Now.Ticks);
 			
 			// Inner Elements
 			for (int x = 0; x < _width; x++)
@@ -96,7 +108,7 @@ namespace Bomberman.Terrain
 					}
 					
 					// Floors or breakable walls
-					if (random.NextDouble() < _breakableWallProbability)
+					if (_random.NextDouble() < _breakableWallProbability)
 					{
 						SetGOAtPos(x, y, Instantiate(_breakableWallPrefab, transform));
 					}
@@ -151,6 +163,18 @@ namespace Bomberman.Terrain
 			_mapData[x + 1, y + 1] = go;
 		}
 
+		public void TryApplyItemAtPos(int x, int y, CharacterScript character)
+		{
+			Vector2Int pos = new Vector2Int(x, y);
+			
+			if (_items.TryGetValue(pos, out IItem item))
+			{
+				item.ApplyBonus(character);
+				Destroy(((MonoBehaviour)item).gameObject);
+				_items.Remove(pos);
+			}
+		}
+
 		public void ExplodeTile(int x, int y)
 		{
 			EnsurePosIsInBounds(x, y, false);
@@ -161,6 +185,12 @@ namespace Bomberman.Terrain
 			if (GetTerrainTypeAtPos(x, y) == TerrainType.BreakableWall)
 			{
 				SetGOAtPos(x, y, Instantiate(_floorPrefab, transform));
+
+				if (_random.NextDouble() < _itemDropProbability)
+				{
+					IItem item = Instantiate(_itemsPrefab[_random.Next(_itemsPrefab.Length)], new Vector3(x, 0, y), Quaternion.identity, transform).GetComponent<IItem>();
+					_items.Add(new Vector2Int(x, y), item);
+				}
 			}
 
 			Instantiate(_explosionPrefab, new Vector3(x, 0.5f, y), Quaternion.identity, transform);

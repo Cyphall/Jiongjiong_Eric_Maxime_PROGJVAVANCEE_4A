@@ -9,10 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5329406924192148493}
+  - component: {fileID: -8243616384209416975}
   - component: {fileID: 6999425052409648455}
   - component: {fileID: 5766663752560406995}
   m_Layer: 0
-  m_Name: Radius Bonus
+  m_Name: Fuze Bonus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,6 +33,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-8243616384209416975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3982294922763239222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5c6a8a390a845348be215c7421358f2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!33 &6999425052409648455
 MeshFilter:
   m_ObjectHideFlags: 0
