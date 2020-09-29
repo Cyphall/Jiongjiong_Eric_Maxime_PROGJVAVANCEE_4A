@@ -20,12 +20,24 @@ namespace Bomberman.GameManager
 
         public CharacterScript Character1 { get; private set; }
         public CharacterScript Character2 { get; private set; }
+        
+        public bool Running { get; set; }
 
         public static GameManagerScript Instance { get; private set; }
 
         private void Awake()
         {
             Instance = this;
+        }
+
+        public void Pause()
+        {
+            Running = false;
+        }
+
+        public void Unpause()
+        {
+            Running = true;
         }
 
         private void Start()

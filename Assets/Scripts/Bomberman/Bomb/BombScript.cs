@@ -36,6 +36,8 @@ namespace Bomberman.Bomb
 
 		private void Update()
 		{
+			if (!GameManagerScript.Instance.Running) return;
+			
 			_remainingFuze -= Time.deltaTime;
 
 			if (_remainingFuze <= 0)

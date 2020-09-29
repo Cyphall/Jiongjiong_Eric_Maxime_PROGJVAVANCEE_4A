@@ -76,6 +76,7 @@ namespace Bomberman.Character
 		private void Update()
 		{
 			if (_controller == null) return;
+			if (!GameManagerScript.Instance.Running) return;
 
 			RequestedActions actions = _controller.Update(_bomb.IsReady);
 
