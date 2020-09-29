@@ -15,7 +15,7 @@ namespace Bomberman.Character
 
 		[SerializeField]
 		private GameObject _bombPrefab;
-		private BombScript _bomb;
+		public BombScript Bomb { get; private set; }
 
 		[SerializeField]
 		[Range(0f, 5f)]
@@ -64,8 +64,8 @@ namespace Bomberman.Character
 		private void Start()
 		{
 			_position = new Vector2Int((int)transform.position.x, (int)transform.position.z);
-			_bomb = Instantiate(_bombPrefab, GameManagerScript.Instance.transform).GetComponent<BombScript>();
-			_bomb.gameObject.SetActive(false);
+			Bomb = Instantiate(_bombPrefab, GameManagerScript.Instance.transform).GetComponent<BombScript>();
+			Bomb.gameObject.SetActive(false);
 		}
 
 		public void SetController(ICharacterController controller)
@@ -78,15 +78,15 @@ namespace Bomberman.Character
 			if (_controller == null) return;
 			if (!GameManagerScript.Instance.Running) return;
 
-			RequestedActions actions = _controller.Update(_bomb.IsReady);
+			RequestedActions actions = _controller.Update(this);
 
 			Position += actions.Move;
 			if (actions.Move.sqrMagnitude != 0)
 				transform.rotation = Quaternion.LookRotation(new Vector3(actions.Move.x, 0, actions.Move.y));
 
-			if (_bomb.IsReady && actions.DropBomb)
+			if (Bomb.IsReady && actions.DropBomb)
 			{
-				_bomb.Drop(_bombFuze, _bombRadius, Position);
+				Bomb.Drop(_bombFuze, _bombRadius, Position);
 			}
 		}
 	}
