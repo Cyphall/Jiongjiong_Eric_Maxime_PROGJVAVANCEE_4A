@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2802190607918471312}
   - component: {fileID: 2677377172115301300}
   m_Layer: 0
-  m_Name: Character2
+  m_Name: Character
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,7 +47,7 @@ MonoBehaviour:
   _bombPrefab: {fileID: 8940946013864148478, guid: 743cada3ea695eb4e8a3090de5b43cc8,
     type: 3}
   _bombFuze: 2
-  _bombRadius: 5
+  _bombRadius: 1
 --- !u!1 &7249723223432607850
 GameObject:
   m_ObjectHideFlags: 0
