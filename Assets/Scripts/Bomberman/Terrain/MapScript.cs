@@ -185,11 +185,11 @@ namespace Bomberman.Terrain
 			if (GetTerrainTypeAtPos(x, y) == TerrainType.Wall)
 				throw new InvalidOperationException("Cannot destroy non-breakable walls");
 
-			if (GameManagerScript.Instance.Character1.Position == new Vector2Int(x, y))
-				GameManagerScript.Instance.Character1.gameObject.SetActive(false);
-			
-			if (GameManagerScript.Instance.Character2.Position == new Vector2Int(x, y))
-				GameManagerScript.Instance.Character2.gameObject.SetActive(false);
+			for (int i = 0; i < GameManagerScript.Instance.Characters.Count; i++)
+			{
+				if (GameManagerScript.Instance.Characters[i].Position == new Vector2Int(x, y))
+					GameManagerScript.Instance.Characters[i].gameObject.SetActive(false);
+			}
 
 			if (GetTerrainTypeAtPos(x, y) == TerrainType.BreakableWall)
 			{

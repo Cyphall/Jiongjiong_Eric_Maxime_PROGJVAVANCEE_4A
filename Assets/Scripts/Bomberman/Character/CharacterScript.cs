@@ -54,11 +54,15 @@ namespace Bomberman.Character
 			}
 		}
 
-		public void SetMaterial(Material material)
+		public void Initialize(ICharacterController controller, Material material, string name)
 		{
+			_controller = controller;
+			
 			Material[] materials = _meshRenderer.sharedMaterials;
 			materials[8] = material;
 			_meshRenderer.sharedMaterials = materials;
+
+			this.name = name;
 		}
 
 		private void Start()
@@ -66,11 +70,6 @@ namespace Bomberman.Character
 			_position = new Vector2Int((int)transform.position.x, (int)transform.position.z);
 			Bomb = Instantiate(_bombPrefab, GameManagerScript.Instance.transform).GetComponent<BombScript>();
 			Bomb.gameObject.SetActive(false);
-		}
-
-		public void SetController(ICharacterController controller)
-		{
-			_controller = controller;
 		}
 
 		private void Update()

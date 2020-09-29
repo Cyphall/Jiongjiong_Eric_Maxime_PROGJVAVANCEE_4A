@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Bomberman.Character;
 using Bomberman.Terrain;
 using UnityEngine;
@@ -20,9 +21,8 @@ namespace Bomberman.GameManager
         
 
         public MapScript Map { get; private set; }
-
-        public CharacterScript Character1 { get; private set; }
-        public CharacterScript Character2 { get; private set; }
+        
+        public List<CharacterScript> Characters { get; } = new List<CharacterScript>();
 
         public bool Running { get; set; } = true;
 
@@ -40,14 +40,17 @@ namespace Bomberman.GameManager
             Map = Instantiate(_mapPrefab).GetComponent<MapScript>();
 
             _victoryMenu = Instantiate(_victoryMenuPrefab).GetComponent<VictoryMenuScript>();
-            
-            Character1 = Instantiate(_characterPrefab, new Vector3(0, 0, Map.Height - 1), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
-            Character1.SetController(new PlayerCharacterController());
-            Character1.SetMaterial(_character1Material);
-            
-            Character2 = Instantiate(_characterPrefab, new Vector3(Map.Width - 1, 0, 0), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
-            Character2.SetController(new RandomCharacterController());
-            Character2.SetMaterial(_character2Material);
+
+            {
+                CharacterScript character = Instantiate(_characterPrefab, new Vector3(0, 0, Map.Height - 1), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
+                character.Initialize(new PlayerCharacterController(), _character1Material, "Player 1");
+                Characters.Add(character);
+            }
+            {
+                CharacterScript character = Instantiate(_characterPrefab, new Vector3(Map.Width - 1, 0, 0), Quaternion.identity, Map.transform).GetComponent<CharacterScript>();
+                character.Initialize(new RandomCharacterController(), _character2Material, "Player 2");
+                Characters.Add(character);
+            }
         }
 
         private void LateUpdate()
@@ -57,24 +60,26 @@ namespace Bomberman.GameManager
 
         public void CheckPlayers()
         {
-            if (!Character1.gameObject.activeSelf && !Character2.gameObject.activeSelf)
+            int aliveCount = 0;
+            CharacterScript lastAlive = null;
+            for (int i = 0; i < Characters.Count; i++)
             {
-                Running = false;
-                _victoryMenu.OpenMenu(0);
-                return;
+                if (Characters[i].gameObject.activeSelf)
+                {
+                    aliveCount++;
+                    lastAlive = Characters[i];
+                }
             }
 
-            if (!Character1.gameObject.activeSelf)
+            if (aliveCount == 1)
             {
                 Running = false;
-                _victoryMenu.OpenMenu(2);
-                return;
+                _victoryMenu.OpenMenu(lastAlive.name);
             }
-
-            if (!Character2.gameObject.activeSelf)
+            else if (aliveCount == 0)
             {
                 Running = false;
-                _victoryMenu.OpenMenu(1);
+                _victoryMenu.OpenMenu(null);
             }
         }
 
