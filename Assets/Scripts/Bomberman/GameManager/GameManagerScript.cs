@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bomberman.Character;
+using Bomberman.Menu.VictoryMenu;
 using Bomberman.Terrain;
 using UnityEngine;
 
