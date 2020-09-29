@@ -50,6 +50,8 @@ namespace Bomberman.Terrain
 
 		private Random _random;
 
+		private GameObject[] players;
+
 		private void Awake()
 		{
 			_mapData = new GameObject[_width+2, _height+2];
@@ -184,6 +186,16 @@ namespace Bomberman.Terrain
 			
 			if (GetTerrainTypeAtPos(x, y) == TerrainType.Wall)
 				throw new InvalidOperationException("Cannot destroy non-breakable walls");
+			
+			players = GameObject.FindGameObjectsWithTag("Player");
+
+			foreach (GameObject player in players)
+			{
+				if (player.transform.position.x == x && player.transform.position.z == y)
+				{
+					player.SetActive(false);
+				}
+			}
 
 			if (GetTerrainTypeAtPos(x, y) == TerrainType.BreakableWall)
 			{
