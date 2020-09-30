@@ -27,7 +27,7 @@ namespace Bomberman.Character
 				new Vector2Int(1, 0),
 				new Vector2Int(-1, 0),
 				new Vector2Int(0, 1),
-				new Vector2Int(0, -1),
+				new Vector2Int(0, -1)
 			};
 
 			List<Vector2Int> validDirections = new List<Vector2Int>();

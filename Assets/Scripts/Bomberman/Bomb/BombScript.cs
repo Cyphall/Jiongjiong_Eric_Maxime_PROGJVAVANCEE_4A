@@ -24,7 +24,7 @@ namespace Bomberman.Bomb
 
 		public void Drop(float fuze, int radius, Vector2Int position)
 		{
-			if (!IsReady) throw new InvalidOperationException("Cannot drop a bomb alreaady dropped");
+			if (!IsReady) throw new InvalidOperationException("Cannot drop a bomb already dropped");
 			
 			_remainingFuze = fuze;
 			_radius = radius;
