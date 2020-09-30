@@ -4,11 +4,14 @@ using UnityEngine.UI;
 
 namespace Bomberman.Menu.MainMenu
 {
-    public class SetResolutionMenu : MonoBehaviour
+    public class OptionMenu : MonoBehaviour
     {
         [SerializeField] private Dropdown resolutionDropdown;
         private Resolution[] resolutions;
-        // Start is called before the first frame update
+        
+        [SerializeField]
+        private GameObject _mainMenu;
+        
         private void Start()
         {
             resolutions = Screen.resolutions;
@@ -30,6 +33,12 @@ namespace Bomberman.Menu.MainMenu
             resolutionDropdown.AddOptions(options);
             resolutionDropdown.value = currentResolutionIndex;
             resolutionDropdown.RefreshShownValue();
+        }
+
+        public void Back()
+        {
+            gameObject.SetActive(false);
+            _mainMenu.SetActive(true);
         }
 
         public void SetFullScreen(bool isFullEcran)
