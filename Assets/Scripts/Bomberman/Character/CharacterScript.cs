@@ -85,6 +85,7 @@ namespace Bomberman.Character
 
 			if (Bomb.IsReady && actions.DropBomb)
 			{
+				SetSound.PlaySound("BombCharge");
 				Bomb.Drop(_bombFuze, _bombRadius, Position);
 			}
 		}

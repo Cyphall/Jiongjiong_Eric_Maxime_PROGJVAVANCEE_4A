@@ -15,7 +15,6 @@ namespace Bomberman.Bomb
 		public bool IsReady => !gameObject.activeSelf;
 		
 		private CharacterScript _owner;
-
 		public void Initialize(CharacterScript owner)
 		{
 			_owner = owner;
@@ -33,7 +32,7 @@ namespace Bomberman.Bomb
 			gameObject.SetActive(true);
 			transform.position = new Vector3(position.x, 0, position.y);
 		}
-
+		
 		private void Update()
 		{
 			if (!GameManagerScript.Instance.Running) return;
@@ -42,6 +41,7 @@ namespace Bomberman.Bomb
 
 			if (_remainingFuze <= 0)
 			{
+				SetSound.StopSound();
 				Explode();
 			}
 		}
@@ -84,7 +84,6 @@ namespace Bomberman.Bomb
 
 				map.ExplodeTile(_position.x, _position.y - i);
 			}
-			
 			gameObject.SetActive(false);
 		}
 	}

@@ -8,6 +8,7 @@ namespace Bomberman.Bomb
         {
             ParticleSystem exp = GetComponent<ParticleSystem>();
             exp.Play();
+            SetSound.PlaySound("Explosion");
             Destroy(gameObject, exp.main.duration);
         }
     }
