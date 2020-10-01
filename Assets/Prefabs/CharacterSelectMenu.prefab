@@ -118,7 +118,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 9218538224996641384}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5308189924003725042}
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1919931600563771196
 GameObject:
   m_ObjectHideFlags: 0
@@ -237,7 +248,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6614776789124463625}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5308189924003725042}
+        m_MethodName: Back
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &3678033465760046840
 GameObject:
   m_ObjectHideFlags: 0
@@ -432,7 +454,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5308189924003725041}
   - component: {fileID: 5308189924003725042}
-  - component: {fileID: 5308189924003725043}
   m_Layer: 0
   m_Name: CharacterSelectMenu
   m_TagString: Untagged
@@ -464,22 +485,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 5308189924003725040}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8625ce9c05594c242b2ad57fcaac0b21, type: 3}
+  m_Script: {fileID: 11500000, guid: a0ef85f86deb425b92d50c999f4145a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5308189924003725043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5308189924003725040}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e856bd0be4473a64199d9d8f607d981b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sceneToLoad: SampleScene
+  _sceneToLoad: 
+  _mainMenu: {fileID: 0}
+  _topLeft: {fileID: 6808546217379326253}
+  _topRight: {fileID: 6808546218921501719}
+  _bottomLeft: {fileID: 6808546218447153440}
+  _bottomRight: {fileID: 6808546218535456519}
 --- !u!1 &5308189924418836245
 GameObject:
   m_ObjectHideFlags: 0
@@ -1865,6 +1879,8 @@ MonoBehaviour:
     - m_Text: Player (Keypad)
       m_Image: {fileID: 0}
     - m_Text: Random IA
+      m_Image: {fileID: 0}
+    - m_Text: MCTS IA
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3668,6 +3684,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Random IA
       m_Image: {fileID: 0}
+    - m_Text: MCTS IA
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4107,6 +4125,8 @@ MonoBehaviour:
     - m_Text: Player (Keypad)
       m_Image: {fileID: 0}
     - m_Text: Random IA
+      m_Image: {fileID: 0}
+    - m_Text: MCTS IA
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5359,6 +5379,8 @@ MonoBehaviour:
     - m_Text: Player (Keypad)
       m_Image: {fileID: 0}
     - m_Text: Random IA
+      m_Image: {fileID: 0}
+    - m_Text: MCTS IA
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

@@ -61,4 +61,4 @@ MonoBehaviour:
   - {fileID: 3982294922763239222, guid: 776ddaeb5e6ad744ca9a02150ffc8344, type: 3}
   - {fileID: 3982294922763239222, guid: e35aa091ed0fa1744849003d521b72c9, type: 3}
   _breakableWallProbability: 0.7
-  _itemDropProbability: 0.122
+  _itemDropProbability: 0.189

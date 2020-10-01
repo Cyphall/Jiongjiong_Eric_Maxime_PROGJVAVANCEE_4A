@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bomberman.Character;
+using Bomberman.Character.MCTS;
 using Bomberman.Menu.VictoryMenu;
 using Bomberman.Terrain;
 using UnityEngine;
@@ -59,6 +60,9 @@ namespace Bomberman.GameManager
                     break;
                 case ControllerType.RandomAI:
                     controller = new RandomCharacterController();
+                    break;
+                case ControllerType.MCTSAI:
+                    controller = new MCTSCharacterController();
                     break;
             }
             

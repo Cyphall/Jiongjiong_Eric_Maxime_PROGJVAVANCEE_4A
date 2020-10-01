@@ -41,9 +41,11 @@ namespace Bomberman.Terrain
 		[SerializeField]
 		[Range(0.0f, 1.0f)]
 		private float _breakableWallProbability;
+		public float BreakableWallProbability => _breakableWallProbability;
 		[SerializeField]
 		[Range(0.0f, 1.0f)]
 		private float _itemDropProbability;
+		public float ItemDropProbability => _itemDropProbability;
 
 		private GameObject[,] _mapData;
 		public Dictionary<Vector2Int, IItem> Items { get; } = new Dictionary<Vector2Int, IItem>();
@@ -121,6 +123,11 @@ namespace Bomberman.Terrain
 					}
 				}
 			}
+		}
+
+		public bool CanMoveCharacterToPos(Vector2Int pos)
+		{
+			return CanMoveCharacterToPos(pos.x, pos.y);
 		}
 		
 		public bool CanMoveCharacterToPos(int x, int y)
