@@ -8,8 +8,8 @@ namespace Bomberman.Bomb
 {
 	public class BombScript : MonoBehaviour
 	{
-		private float _remainingFuze;
-		private int _radius;
+		public float RemainingFuze { get; private set; }
+		public int Radius { get; private set; }
 		private Vector2Int _position;
 		public Vector2Int Position => _position;
 		private bool SoundIsStop = false;
@@ -29,8 +29,8 @@ namespace Bomberman.Bomb
 		{
 			if (!IsReady) throw new InvalidOperationException("Cannot drop a bomb already dropped");
 			
-			_remainingFuze = fuze;
-			_radius = radius;
+			RemainingFuze = fuze;
+			Radius = radius;
 			_position = position;
 			
 			gameObject.SetActive(true);
@@ -42,10 +42,10 @@ namespace Bomberman.Bomb
 		{
 			if (!GameManagerScript.Instance.Running) return;
 			
-			_remainingFuze -= Time.deltaTime;
+			RemainingFuze -= Time.deltaTime;
 			
 			
-			if (_remainingFuze <= 0)
+			if (RemainingFuze <= 0)
 			{
 				Explode();
 			}
@@ -59,7 +59,7 @@ namespace Bomberman.Bomb
 			map.ExplodeTile(_position.x, _position.y);
 			
 			// Right
-			for (int i = 1; i < _radius + 1; i++)
+			for (int i = 1; i < Radius + 1; i++)
 			{
 				if (map.GetTerrainTypeAtPos(_position.x + i, _position.y) == TerrainType.Wall) break;
 
@@ -67,7 +67,7 @@ namespace Bomberman.Bomb
 			}
 			
 			// Left
-			for (int i = 1; i < _radius + 1; i++)
+			for (int i = 1; i < Radius + 1; i++)
 			{
 				if (map.GetTerrainTypeAtPos(_position.x - i, _position.y) == TerrainType.Wall) break;
 
@@ -75,7 +75,7 @@ namespace Bomberman.Bomb
 			}
 			
 			// Top
-			for (int i = 1; i < _radius + 1; i++)
+			for (int i = 1; i < Radius + 1; i++)
 			{
 				if (map.GetTerrainTypeAtPos(_position.x, _position.y + i) == TerrainType.Wall) break;
 
@@ -83,7 +83,7 @@ namespace Bomberman.Bomb
 			}
 			
 			// Bottom
-			for (int i = 1; i < _radius + 1; i++)
+			for (int i = 1; i < Radius + 1; i++)
 			{
 				if (map.GetTerrainTypeAtPos(_position.x, _position.y - i) == TerrainType.Wall) break;
 
