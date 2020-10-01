@@ -41,9 +41,19 @@ namespace Bomberman.Character
 				}
 			}
 
-			actions.Move = validDirections[_random.Next(validDirections.Count)];
+			int randomValue = _random.Next(validDirections.Count + (character.Bomb.IsReady ? 1 : 0));
 
-			actions.DropBomb = character.Bomb.IsReady;
+			if (randomValue < validDirections.Count)
+			{
+				actions.Move = validDirections[_random.Next(validDirections.Count)];
+				actions.DropBomb = false;
+			}
+			else
+			{
+				actions.Move = Vector2Int.zero;
+				actions.DropBomb = true;
+			}
+			
 			return actions;
 		}
 	}
