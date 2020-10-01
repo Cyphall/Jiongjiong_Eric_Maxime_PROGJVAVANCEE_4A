@@ -16,7 +16,9 @@ namespace Bomberman.Character
 		[SerializeField]
 		private GameObject _bombPrefab;
 		public BombScript Bomb { get; private set; }
-
+		
+		
+		
 		[SerializeField]
 		[Range(0f, 5f)]
 		private float _bombFuze;
@@ -85,7 +87,6 @@ namespace Bomberman.Character
 
 			if (Bomb.IsReady && actions.DropBomb)
 			{
-				SetSound.PlaySound("BombCharge");
 				Bomb.Drop(_bombFuze, _bombRadius, Position);
 			}
 		}

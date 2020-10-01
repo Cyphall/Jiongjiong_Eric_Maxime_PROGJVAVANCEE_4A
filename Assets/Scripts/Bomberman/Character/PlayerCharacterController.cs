@@ -24,8 +24,8 @@ namespace Bomberman.Character
 			{
 				actions.Move = new Vector2Int(1, 0);
 			}
-
 			actions.DropBomb = Input.GetKeyDown(KeyCode.Space);
+			
 
 			return actions;
 		}

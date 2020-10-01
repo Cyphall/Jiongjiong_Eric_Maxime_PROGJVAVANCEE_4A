@@ -44,7 +44,6 @@ namespace Bomberman.Character
 			actions.Move = validDirections[_random.Next(validDirections.Count)];
 
 			actions.DropBomb = character.Bomb.IsReady;
-
 			return actions;
 		}
 	}

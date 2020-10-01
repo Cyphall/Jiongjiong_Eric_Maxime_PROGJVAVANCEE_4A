@@ -11,6 +11,7 @@ namespace Bomberman.Bomb
 		private float _remainingFuze;
 		private int _radius;
 		private Vector2Int _position;
+		private bool SoundIsStop = false;
 		
 		public bool IsReady => !gameObject.activeSelf;
 		
@@ -20,6 +21,8 @@ namespace Bomberman.Bomb
 			_owner = owner;
 			gameObject.SetActive(false);
 		}
+		
+		
 
 		public void Drop(float fuze, int radius, Vector2Int position)
 		{
@@ -31,6 +34,7 @@ namespace Bomberman.Bomb
 			
 			gameObject.SetActive(true);
 			transform.position = new Vector3(position.x, 0, position.y);
+			SetSound.PlaySound("BombCharge");
 		}
 		
 		private void Update()
@@ -38,10 +42,10 @@ namespace Bomberman.Bomb
 			if (!GameManagerScript.Instance.Running) return;
 			
 			_remainingFuze -= Time.deltaTime;
-
+			
+			
 			if (_remainingFuze <= 0)
 			{
-				SetSound.StopSound();
 				Explode();
 			}
 		}

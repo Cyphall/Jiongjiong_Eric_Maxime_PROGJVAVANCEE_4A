@@ -2,38 +2,36 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using Bomberman.Bomb;
 using UnityEngine;
-
-public class SetSound : MonoBehaviour
+namespace Bomberman.Character
 {
-    public static AudioClip BombCharge, BombExplosion;
-    public static AudioSource AudioSrc;
-
-    private void Start()
+    public class SetSound : MonoBehaviour
     {
-        BombCharge = Resources.Load<AudioClip>("BombCharge");
-        BombExplosion = Resources.Load<AudioClip>("Explosion");
-        AudioSrc = GetComponent<AudioSource>();
-    }
-
-    public static void PlaySound(string Clip)
-    {
-        switch (Clip)
+        public static AudioClip BombCharge, BombExplosion;
+        public static AudioSource AudioSrc;
+        
+        private void Start()
         {
-            case "BombCharge" :
-                AudioSrc.PlayOneShot(BombCharge);
-                break;
-            case "Explosion" :
-                AudioSrc.PlayOneShot(BombExplosion);
-                break;
-        }
+            AudioSrc = GetComponent<AudioSource>();
             
+            BombCharge = Resources.Load<AudioClip>("BombCharge");
+            BombExplosion = Resources.Load<AudioClip>("Explosion");
+        }
+
+        public static void PlaySound(string Clip)
+        {
+            switch (Clip)
+            {
+                case "BombCharge":
+                    AudioSrc.PlayOneShot(BombCharge,0.2f);
+                    
+                    break;
+                case "Explosion":
+                    AudioSrc.PlayOneShot(BombExplosion,0.1f);
+                    break;
+            }
+        }
     }
 
-    public static void StopSound()
-    {
-        AudioSrc.Stop();
-    }
-    
-    
 }
