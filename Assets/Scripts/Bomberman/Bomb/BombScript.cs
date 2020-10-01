@@ -11,6 +11,7 @@ namespace Bomberman.Bomb
 		private float _remainingFuze;
 		private int _radius;
 		private Vector2Int _position;
+		public Vector2Int Position => _position;
 		private bool SoundIsStop = false;
 		
 		public bool IsReady => !gameObject.activeSelf;
