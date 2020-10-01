@@ -79,7 +79,7 @@ namespace Bomberman.Character
 			if (_controller == null) return;
 			if (!GameManagerScript.Instance.Running) return;
 
-			RequestedActions actions = _controller.Update(this);
+			RequestedAction actions = _controller.Update(this);
 
 			Position += actions.Move;
 			if (actions.Move.sqrMagnitude != 0)

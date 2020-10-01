@@ -4,9 +4,9 @@ namespace Bomberman.Character
 {
 	public class PlayerCharacterController : ICharacterController
 	{
-		public RequestedActions Update(CharacterScript character)
+		public RequestedAction Update(CharacterScript character)
 		{
-			RequestedActions actions = new RequestedActions();
+			RequestedAction actions = new RequestedAction();
 			
 			if (Input.GetKeyDown(KeyCode.Z))
 			{

@@ -4,7 +4,6 @@ using Bomberman.GameManager;
 using Bomberman.Item;
 using Bomberman.Terrain;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Bomberman.Character.MCTS
 {
@@ -14,7 +13,6 @@ namespace Bomberman.Character.MCTS
 		public List<CharacterState> Characters;
 		public CharacterState Self;
 		public Dictionary<Vector2Int, BonusType> Bonuses;
-		public int Turn;
 
 		public GameState(CharacterScript self)
 		{
@@ -73,8 +71,6 @@ namespace Bomberman.Character.MCTS
 
             	Bonuses.Add(pair.Key, type);
             }
-
-            Turn = 0;
 		}
 
 		public GameState(GameState other)
@@ -107,8 +103,6 @@ namespace Bomberman.Character.MCTS
 			{
 				Bonuses.Add(pair.Key, pair.Value);
 			}
-
-			Turn = other.Turn;
 		}
 
 		public bool IsPosWalkable(int x, int y)
@@ -128,6 +122,36 @@ namespace Bomberman.Character.MCTS
 			}
 			
 			return GetTerrainTypeAtPos(pos) == TerrainType.Floor;
+		}
+
+		public List<MoveType> GetPossibleMoves()
+		{
+			List<MoveType> moves = new List<MoveType>();
+
+			if (IsPosWalkable(Self.Position + new Vector2Int(1, 0)))
+			{
+				moves.Add(MoveType.Right);
+			}
+			if (IsPosWalkable(Self.Position + new Vector2Int(-1, 0)))
+			{
+				moves.Add(MoveType.Left);
+			}
+			if (IsPosWalkable(Self.Position + new Vector2Int(0, 1)))
+			{
+				moves.Add(MoveType.Up);
+			}
+			if (IsPosWalkable(Self.Position + new Vector2Int(0, -1)))
+			{
+				moves.Add(MoveType.Down);
+			}
+			if (Self.Bomb == null)
+			{
+				moves.Add(MoveType.Drop);
+			}
+			
+			moves.Add(MoveType.Wait);
+
+			return moves;
 		}
 
 		public TerrainType GetTerrainTypeAtPos(Vector2Int pos)
@@ -161,104 +185,16 @@ namespace Bomberman.Character.MCTS
 			return false;
 		}
 		
-		public Score CalculateScore()
+		public bool GetResult()
 		{
-			Score score = new Score
-			{
-				SelfAlive = Self != null,
-				Turns = Turn,
-				DestroyedWalls = Self?.DestroyedWalls ?? 0,
-				CharacterDiff = GameManagerScript.Instance.Characters.Count - Characters.Count
-			};
-			
-			// if (Self != null)
-			// {
-			// 	score += 1000000;
-			// }
-			//
-			// score -= Turn * 3;
-			// score += (GameManagerScript.Instance.Characters.Count - Characters.Count) * 100000;
-			// score += Self?.DestroyedWalls * 100 ?? 0;
-				
-			return score;
-		}
-	}
-
-	public struct Score
-	{
-		private bool _minValue;
-		public int Value
-		{
-			get
-			{
-				if (_minValue)
-					return int.MinValue;
-				
-				int score = 0;
-			
-				if (SelfAlive)
-				{
-					score += 1000000;
-					score -= Turns * 3;
-				}
-				else
-				{
-					score += Turns * 3;
-				}
-				
-				score += CharacterDiff * 100000;
-				score += DestroyedWalls * 100;
-				
-				return score;
-			}
+			return Self != null;
 		}
 
-		public bool SelfAlive;
-		public int Turns;
-		public int CharacterDiff;
-		public int DestroyedWalls;
-
-		public static Score MinValue()
+		public void ApplyRequestedAction(RequestedAction action)
 		{
-			return new Score
-			{
-				_minValue = true
-			};
-		}
-
-		public static bool operator >(Score left, Score right)
-		{
-			return left.Value > right.Value;
-		}
-
-		public static bool operator <(Score left, Score right)
-		{
-			return left.Value < right.Value;
-		}
-
-		public static bool operator >=(Score left, Score right)
-		{
-			return left.Value >= right.Value;
-		}
-
-		public static bool operator <=(Score left, Score right)
-		{
-			return left.Value <= right.Value;
-		}
-
-		public static bool operator ==(Score left, Score right)
-		{
-			return left.Value == right.Value;
-		}
-
-		public static bool operator !=(Score left, Score right)
-		{
-			return !(left == right);
-		}
-
-		public override string ToString()
-		{
-			return $"{Value}";
+			Self.Position += action.Move;
+			if (action.DropBomb)
+				Self.Bomb = new BombState(Self.BombFuze, Self.BombRadius, Self.Position);
 		}
 	}
 }

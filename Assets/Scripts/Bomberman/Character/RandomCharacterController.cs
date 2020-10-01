@@ -12,11 +12,11 @@ namespace Bomberman.Character
 		private float _delay;
 		private Random _random = new Random((int)DateTime.Now.Ticks);
 		
-		public RequestedActions Update(CharacterScript character)
+		public RequestedAction Update(CharacterScript character)
 		{
 			_delay += Time.deltaTime;
 			
-			RequestedActions actions = new RequestedActions();
+			RequestedAction actions = new RequestedAction();
 
 			if (_delay <= 0.3f)
 				return actions;

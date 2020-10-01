@@ -2,7 +2,7 @@
 
 namespace Bomberman.Character
 {
-	public class RequestedActions
+	public class RequestedAction
 	{
 		public Vector2Int Move;
 		public bool DropBomb;
