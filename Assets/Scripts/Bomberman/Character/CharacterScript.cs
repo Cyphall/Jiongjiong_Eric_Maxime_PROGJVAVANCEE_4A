@@ -47,7 +47,7 @@ namespace Bomberman.Character
 				if (posDiff.sqrMagnitude > 1) throw new InvalidOperationException("Cannot move in diagonal");
 				if (posDiff.sqrMagnitude == 0) return;
 
-				if (GameManagerScript.Instance.Map.GetTerrainTypeAtPos(value.x, value.y) == TerrainType.Floor)
+				if (GameManagerScript.Instance.Map.CanMoveCharacterToPos(value.x, value.y))
 				{
 					_position = value;
 					transform.position = new Vector3(value.x, 0, value.y);

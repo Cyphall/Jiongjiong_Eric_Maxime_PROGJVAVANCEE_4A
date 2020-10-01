@@ -35,7 +35,7 @@ namespace Bomberman.Character
 			foreach (Vector2Int direction in possibleDirections)
 			{
 				Vector2Int pos = character.Position + direction;
-				if (GameManagerScript.Instance.Map.GetTerrainTypeAtPos(pos.x, pos.y) == TerrainType.Floor)
+				if (GameManagerScript.Instance.Map.CanMoveCharacterToPos(pos.x, pos.y))
 				{
 					validDirections.Add(direction);
 				}

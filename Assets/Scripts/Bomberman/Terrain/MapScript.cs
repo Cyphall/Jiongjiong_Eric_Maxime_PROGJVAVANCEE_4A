@@ -122,6 +122,20 @@ namespace Bomberman.Terrain
 				}
 			}
 		}
+		
+		public bool CanMoveCharacterToPos(int x, int y)
+		{
+			for (int i = 0; i < GameManagerScript.Instance.Characters.Count; i++)
+			{
+				if (!GameManagerScript.Instance.Characters[i].Bomb.IsReady && 
+				    GameManagerScript.Instance.Characters[i].Bomb.Position == new Vector2Int(x, y))
+				{
+					return false;
+				}
+			}
+			
+			return GetTerrainTypeAtPos(x, y) == TerrainType.Floor;
+		}
 
 		public TerrainType GetTerrainTypeAtPos(int x, int y)
 		{
