@@ -46,7 +46,7 @@ namespace Bomberman.Terrain
 		private float _itemDropProbability;
 
 		private GameObject[,] _mapData;
-		private Dictionary<Vector2Int, IItem> _items = new Dictionary<Vector2Int, IItem>();
+		public Dictionary<Vector2Int, IItem> Items { get; } = new Dictionary<Vector2Int, IItem>();
 
 		private Random _random;
 
@@ -170,11 +170,11 @@ namespace Bomberman.Terrain
 		{
 			Vector2Int pos = new Vector2Int(x, y);
 			
-			if (_items.TryGetValue(pos, out IItem item))
+			if (Items.TryGetValue(pos, out IItem item))
 			{
 				item.ApplyBonus(character);
 				Destroy(((MonoBehaviour)item).gameObject);
-				_items.Remove(pos);
+				Items.Remove(pos);
 			}
 		}
 
@@ -198,7 +198,7 @@ namespace Bomberman.Terrain
 				if (_random.NextDouble() < _itemDropProbability)
 				{
 					IItem item = Instantiate(_itemsPrefab[_random.Next(_itemsPrefab.Length)], new Vector3(x, 0, y), Quaternion.identity, transform).GetComponent<IItem>();
-					_items.Add(new Vector2Int(x, y), item);
+					Items.Add(new Vector2Int(x, y), item);
 				}
 			}
 
