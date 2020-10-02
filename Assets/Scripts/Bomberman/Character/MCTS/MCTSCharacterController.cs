@@ -23,7 +23,7 @@ namespace Bomberman.Character.MCTS
 				root.Expand();
 			}
 
-			return root.GetBestAction();
+			return root.GetBestAction() ?? new RequestedAction();
 		}
 	}
 }
