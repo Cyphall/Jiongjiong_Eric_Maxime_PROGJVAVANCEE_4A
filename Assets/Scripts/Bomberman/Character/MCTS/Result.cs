@@ -3,6 +3,7 @@
 	public class Result
 	{
 		public int Wins { get; set; }
+		public int Loses => Games - Wins;
 		public int Games { get; set; }
 
 		public float WinRate => Games > 0 ? (float)Wins / Games : 0;
