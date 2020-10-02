@@ -14,6 +14,14 @@ namespace Bomberman.Character.MCTS
 		private static GameState _state;
 
 		public const float TIME_PER_TURN = 0.51f;
+		
+		private static Vector2Int[] _possibleDirections =
+		{
+			new Vector2Int(1, 0),
+			new Vector2Int(-1, 0),
+			new Vector2Int(0, 1),
+			new Vector2Int(0, -1)
+		};
 
 		public static void Simulate(GameState state, bool simulateRandomSelf)
 		{
@@ -28,22 +36,14 @@ namespace Bomberman.Character.MCTS
 		
 		private static void SimulateRandomSelf()
 		{
-			Vector2Int[] possibleDirections =
-			{
-				new Vector2Int(1, 0),
-				new Vector2Int(-1, 0),
-				new Vector2Int(0, 1),
-				new Vector2Int(0, -1)
-			};
-
 			List<Vector2Int> validDirections = new List<Vector2Int>();
 
-			foreach (Vector2Int direction in possibleDirections)
+			for (int i = 0; i < _possibleDirections.Length; i++)
 			{
-				Vector2Int pos = _state.Self.Position + direction;
+				Vector2Int pos = _state.Self.Position + _possibleDirections[i];
 				if (_state.IsPosWalkable(pos))
 				{
-					validDirections.Add(direction);
+					validDirections.Add(_possibleDirections[i]);
 				}
 			}
 
@@ -51,7 +51,7 @@ namespace Bomberman.Character.MCTS
 
 			if (randomValue < validDirections.Count)
 			{
-				_state.Self.Position += validDirections[_random.Next(validDirections.Count)];
+				_state.Self.Position += validDirections[randomValue];
 			}
 			else
 			{
