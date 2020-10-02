@@ -18,7 +18,7 @@ namespace Bomberman.Character.MCTS
 
 			Node root = new Node(new GameState(character));
 
-			for (int i = 0; i < 20; i++)
+			for (int i = 0; i < 50; i++)
 			{
 				root.Expand();
 			}

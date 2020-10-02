@@ -6,10 +6,13 @@ namespace Bomberman.Character.MCTS
 {
 	public class Node
 	{
+		private static double SQRT_TWO = Math.Sqrt(2);
+		
 		public Dictionary<MoveType, Node> Children { get; } = new Dictionary<MoveType, Node>();
 		
 		public GameState State { get; }
 
+		private int _visitCount = 1;
 		private bool _expanded;
 		
 		private Result _result = new Result();
@@ -47,16 +50,25 @@ namespace Bomberman.Character.MCTS
 
 		public void Expand()
 		{
+			_visitCount++;
 			if (_expanded)
 			{
 				Node bestChild = null;
+				double bestUtc = 0;
 				foreach (Node child in Children.Values)
 				{
-					if (bestChild == null || child.Result.WinRate > bestChild.Result.WinRate)
+					if (child.State.Self == null) continue;
+
+					double uct = child.Result.WinRate + SQRT_TWO * Math.Sqrt(Math.Log(_visitCount) / child._visitCount);
+					
+					if (uct > bestUtc)
 					{
 						bestChild = child;
+						bestUtc = uct;
 					}
 				}
+				
+				bestChild?.Expand();
 				return;
 			}
 

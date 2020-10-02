@@ -5,7 +5,7 @@
 		public int Wins { get; set; }
 		public int Games { get; set; }
 
-		public float WinRate => (float)Games > 0 ? Wins / Games : 0;
+		public float WinRate => Games > 0 ? (float)Wins / Games : 0;
 
 		public Result(int wins, int games)
 		{
